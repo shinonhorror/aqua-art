@@ -14,7 +14,7 @@
 
 ## Деплой
 
-[Netlify](https://github.com/)
+[Netlify](https://jade-selkie-57c5e0.netlify.app/)
 
 ## Стек
 
