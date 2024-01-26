@@ -1,0 +1,109 @@
+$animation-duration: 3s;
+
+.gradient-blur {
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  background: linear-gradient(-45deg, #b4b4b4, #ffffff, #b4b4b4, #ffffff);
+  background-size: 400% 400%;
+  animation: gradient-blur-animation $animation-duration infinite;
+}
+
+@keyframes gradient-blur-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.card {
+  width: 315px;
+  height: 184px;
+  border-radius: 30px;
+  background: linear-gradient(177deg, #9c2cf3 -13.49%, #3a49f9 109.75%);
+  padding: 20px 30px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out;
+  &__back,
+  &__front {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  &__back {
+    transform: rotateY(180deg);
+  }
+  &__inner {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+  &.rotate {
+    transform: rotateY(180deg);
+  }
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5px;
+}
+
+.balance {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding-top: 5px;
+  &__text {
+    opacity: 0.54;
+    font-size: 14px;
+  }
+  &__title {
+    font-size: 28px;
+  }
+}
+
+.requisites {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__number,
+  &__date {
+    cursor: pointer;
+    width: fit-content;
+  }
+}
+
+.data {
+  padding-top: 30px;
+  display: flex;
+  gap: 25px;
+  &__date,
+  &__cvv {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    &-text {
+      font-size: 12px;
+      opacity: 0.5;
+    }
+    &-value {
+      font-size: 11px;
+      line-height: 162.7%;
+      cursor: pointer;
+    }
+  }
+}
+
+.chip {
+  margin-top: auto;
+}

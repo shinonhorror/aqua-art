@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -12,14 +13,14 @@ module.exports = {
     paths: PATHS,
   },
   entry: {
-    index: path.join(PATHS.src, '/app.tsx'),
+    index: path.join(PATHS.src, 'index.tsx'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
-      template: path.join(PATHS.src, '/index.html'),
+      template: path.join('index.html'),
     }),
     new Dotenv(),
+    new MiniCssExtractPlugin(),
   ],
   output: {
     path: PATHS.dist,
@@ -30,19 +31,38 @@ module.exports = {
       {
         test: /\.(ts|tsx)?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: ['/node_modules/'],
       },
       {
-        test: /\.(png|jpg|gif|svg)$/i,
-        loader: 'file-loader',
-        exclude: /node_modules/,
-        options: {
-          name: '[name].[ext]',
-        },
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+          },
+        ],
+      },
+      {
+        test: /\.scss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true },
+          },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true },
+          },
+        ],
       },
     ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
+    alias: {
+      '@': PATHS.src,
+      assets: path.join(PATHS.src, '/assets/'),
+      components: path.join(PATHS.src, '/components/'),
+    },
   },
 };
